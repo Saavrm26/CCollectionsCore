@@ -1,0 +1,24 @@
+---
+BasedOnStyle: LLVM
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: 'true'
+AlignConsecutiveDeclarations: 'true'
+AlignTrailingComments: 'true'
+AllowAllArgumentsOnNextLine: 'true'
+AllowAllConstructorInitializersOnNextLine: 'true'
+AllowAllParametersOfDeclarationOnNextLine: 'true'
+AllowShortBlocksOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'true'
+AllowShortLoopsOnASingleLine: 'true'
+ColumnLimit: '80'
+IndentWidth: '4'
+Language: Cpp
+PenaltyReturnTypeOnItsOwnLine: '0'
+ReflowComments: 'true'
+SortIncludes: 'true'
+SpacesInContainerLiterals: 'true'
+SpacesInParentheses: 'false'
+TabWidth: '4'
+UseTab: ForIndentation
+
+...
