@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * TODO: Fix destoy_vector
+ * TODO: Rename the entire structure
+ * */
+
 struct vector {
 	size_t size;
 	size_t capacity;
@@ -98,21 +103,54 @@ enum CC_status push_back(vector *dest, void *val_ptr) {
 	return CC_ok;
 }
 
-enum CC_status pop_back(vector *dest) { 
-    if (!dest->size) {
-        return CC_underflow;
-    }
-    dest->size--;
-    return CC_ok; 
+enum CC_status pop_back(vector *dest) {
+	if (!dest->size) {
+		return CC_underflow;
+	}
+	dest->size--;
+	return CC_ok;
 }
 
 enum CC_status get_at(vector *target, size_t idx, void **out) {
 	if (idx > target->size)
 		return CC_out_of_bounds;
 	*out = target->arr[idx];
-    return CC_ok;
+	return CC_ok;
 }
 
-enum CC_status initialize_with_iterator(vector *dest) {
-	return CC_not_implemented;
+enum CC_status
+push_back_array(vector *dest, void *src, size_t step_size, size_t npos) {
+	for (size_t pos = 0; pos < npos; pos++) {
+		enum CC_status stat = push_back(dest, src);
+		if (stat != CC_ok)
+			return stat;
+		src += step_size;
+	}
+	return CC_ok;
+}
+
+enum CC_status insert_at(vector *dest, size_t idx, void *val_ptr) {
+	if (idx < 0 || idx > dest->size)
+		return CC_out_of_bounds;
+	enum CC_status stat;
+	if (dest->size == dest->capacity) {
+		stat = expand_capacity(dest);
+		if (stat != CC_ok)
+			return stat;
+	}
+	void **arr = dest->arr;
+	memmove(arr + idx + 1, arr + idx, (dest->size - idx) * sizeof(*arr));
+	arr[idx] = val_ptr;
+	++dest->size;
+	return CC_ok;
+}
+
+enum CC_status remove_at(vector *dest, size_t idx) {
+	if (idx < 0 || idx >= dest->size)
+		return CC_out_of_bounds;
+
+	void **arr = dest->arr;
+	memmove(arr + idx, arr + idx + 1, (dest->size - idx - 1) * sizeof(*arr));
+	--dest->size;
+	return CC_ok;
 }

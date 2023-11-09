@@ -47,7 +47,12 @@ enum CC_status pop_back(vector *dest);
 
 enum CC_status get_at(vector *target, size_t idx, void **out);
 
-enum CC_status initialize_with_iterator(vector *dest);
+enum CC_status
+push_back_array(vector *dest, void *src, size_t step_size, size_t npos);
 
 enum CC_status expand_capacity(vector *target);
+
+enum CC_status insert_at(vector *dest, size_t idx, void *val_ptr);
+
+enum CC_status remove_at(vector *dest, size_t idx);
 #endif // !VECTOR
